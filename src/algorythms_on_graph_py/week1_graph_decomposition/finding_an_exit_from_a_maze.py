@@ -69,13 +69,33 @@ class Maze:
             left, right = edge
             res[left].append(right)
             res[right].append(left)
-        return dict(res)
+        return res
 
-    def explore(self, v: int, visited: Optional[set[int]] = None) -> None:
+    def _explore(self, v: int, visited: Optional[set[int]] = None) -> set[int]:
+        """
+        Updates visited
+
+        Args:
+            v: vertex
+            visited: set of visited vertexes
+
+        """
         if visited is None:
             visited = set()
 
         visited.add(v)
+        for v in self.adjacency_list[v]:
+            if v not in visited:
+                self._explore(v, visited)
+
+        return visited
+
+    # def _dfs(self, u: int) -> set[int]:
+    #     visited = set()
+    #     for v in self.adjacency_list:
+    #         if v not in visited:
+    #             self._explore(v, visited)
+    #     return visited
 
     def check_path_between(self, u: int, v: int) -> bool:
         """
@@ -89,7 +109,7 @@ class Maze:
             bool
 
         """
-        raise NotImplementedError()
+        return v in self._explore(u)
 
 
 @dataclasses.dataclass

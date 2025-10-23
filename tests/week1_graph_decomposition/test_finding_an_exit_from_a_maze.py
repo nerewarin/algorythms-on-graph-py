@@ -79,46 +79,46 @@ class TestFindingAnExitFromAMaze:
         # Path 1 -> 4 exists (direct connection)
         assert check_path_between(inp)
 
-    # def test_maze_no_path(self):
-    #     """Test path finding when no path exists."""
-    #     edges = [(1, 2), (3, 4)]  # Two disconnected components
-    #     maze = Maze(4, 2, edges)
-    #
-    #     # No path from 1 to 4
-    #     assert maze.check_path_between(1, 4) == False
-    #
-    #     # No path from 2 to 3
-    #     assert maze.check_path_between(2, 3) == False
-    #
-    # def test_maze_same_vertex(self):
-    #     """Test path finding when start and end are the same."""
-    #     edges = [(1, 2), (2, 3)]
-    #     maze = Maze(3, 2, edges)
-    #
-    #     # Path from vertex to itself should be True
-    #     assert maze.check_path_between(1, 1) == True
-    #     assert maze.check_path_between(2, 2) == True
-    #
-    # def test_maze_single_vertex(self):
-    #     """Test with single vertex (edge case)."""
-    #     edges = []
-    #     maze = Maze(1, 0, edges)
-    #
-    #     # Single vertex to itself
-    #     assert maze.check_path_between(1, 1) == True
-    #
-    # def test_maze_large_graph(self):
-    #     """Test with larger graph to ensure algorithm scales."""
-    #     # Create a chain: 1-2-3-4-5
-    #     edges = [(1, 2), (2, 3), (3, 4), (4, 5)]
-    #     maze = Maze(5, 4, edges)
-    #
-    #     # Path from 1 to 5 should exist
-    #     assert maze.check_path_between(1, 5) == True
-    #
-    #     # Path from 1 to 3 should exist
-    #     assert maze.check_path_between(1, 3) == True
-    #
-    #     # No path from 1 to 6 (doesn't exist)
-    #     # This should not crash, just return False
-    #     assert maze.check_path_between(1, 6) == False
+    def test_maze_no_path(self):
+        """Test path finding when no path exists."""
+        edges = [(1, 2), (3, 4)]  # Two disconnected components
+        maze = Maze(4, 2, edges)
+
+        # No path from 1 to 4
+        assert maze.check_path_between(1, 4) is False
+
+        # No path from 2 to 3
+        assert maze.check_path_between(2, 3) is False
+
+    def test_maze_same_vertex(self):
+        """Test path finding when start and end are the same."""
+        edges = [(1, 2), (2, 3)]
+        maze = Maze(3, 2, edges)
+
+        # Path from vertex to itself should be True
+        assert maze.check_path_between(1, 1) is True
+        assert maze.check_path_between(2, 2) is True
+
+    def test_maze_single_vertex(self):
+        """Test with single vertex (edge case)."""
+        edges = []
+        maze = Maze(1, 0, edges)
+
+        # Single vertex to itself
+        assert maze.check_path_between(1, 1) is True
+
+    def test_maze_large_graph(self):
+        """Test with larger graph to ensure algorithm scales."""
+        # Create a chain: 1-2-3-4-5
+        edges = [(1, 2), (2, 3), (3, 4), (4, 5)]
+        maze = Maze(5, 4, edges)
+
+        # Path from 1 to 5 should exist
+        assert maze.check_path_between(1, 5) is True
+
+        # Path from 1 to 3 should exist
+        assert maze.check_path_between(1, 3) is True
+
+        # No path from 1 to 6 (doesn't exist)
+        # This should not crash, just return False
+        assert maze.check_path_between(1, 6) is False
