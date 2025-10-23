@@ -34,4 +34,4 @@ build-backend = "hatchling.build"
 
 # 👇 Tell Hatch where the packages are
 [tool.hatch.build.targets.wheel]
-packages = ["src/week1_graph_decomposition"]
+packages = ["src/algorythms_on_graph_py"]
