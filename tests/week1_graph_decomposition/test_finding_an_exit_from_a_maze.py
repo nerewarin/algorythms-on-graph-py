@@ -6,6 +6,8 @@ from unittest.mock import patch
 
 from algorythms_on_graph_py.week1_graph_decomposition.finding_an_exit_from_a_maze import (
     Input,
+    Maze,
+    check_path_between,
     parse_input,
 )
 
@@ -55,29 +57,28 @@ class TestFindingAnExitFromAMaze:
         assert result.u == expected.u
         assert result.v == expected.v
 
-    # def test_maze_adjacency_list_construction(self):
-    #     """Test that Maze correctly builds adjacency list."""
-    #     edges = [(1, 2), (2, 3), (3, 4), (1, 4)]
-    #     maze = Maze(4, 4, edges)
-    #
-    #     # Check adjacency list structure
-    #     assert len(maze.adjacency_list) == 5  # 0-indexed, so 0-4
-    #     assert 2 in maze.adjacency_list[1]  # 1 connects to 2
-    #     assert 1 in maze.adjacency_list[2]  # 2 connects to 1 (undirected)
-    #     assert 4 in maze.adjacency_list[1]  # 1 connects to 4
-    #     assert 1 in maze.adjacency_list[4]  # 4 connects to 1 (undirected)
-    #
-    # def test_maze_path_exists(self):
-    #     """Test path finding when path exists."""
-    #     edges = [(1, 2), (2, 3), (3, 4), (1, 4)]
-    #     maze = Maze(4, 4, edges)
-    #
-    #     # Path 1 -> 4 exists (direct connection)
-    #     assert maze.check_path_between(1, 4) == True
-    #
-    #     # Path 1 -> 3 exists (1 -> 2 -> 3)
-    #     assert maze.check_path_between(1, 3) == True
-    #
+    def test_maze_adjacency_list_construction(self):
+        """Test that Maze correctly builds adjacency list."""
+        edges = [(1, 2), (2, 3), (3, 4), (1, 4)]
+        maze = Maze(4, 4, edges)
+
+        # Check adjacency list structure
+        assert len(maze.adjacency_list) == 4
+        assert 2 in maze.adjacency_list[1]  # 1 connects to 2
+        assert 1 in maze.adjacency_list[2]  # 2 connects to 1 (undirected)
+        assert 4 in maze.adjacency_list[1]  # 1 connects to 4
+        assert 1 in maze.adjacency_list[4]  # 4 connects to 1 (undirected)
+
+    def test_maze_path_exists(self):
+        """Test path finding when path exists."""
+        input_lines = ["4 4", "1 2", "3 2", "4 3", "1 4", "1 4"]
+
+        with patch("builtins.input", side_effect=input_lines):
+            inp = parse_input()
+
+        # Path 1 -> 4 exists (direct connection)
+        assert check_path_between(inp)
+
     # def test_maze_no_path(self):
     #     """Test path finding when no path exists."""
     #     edges = [(1, 2), (3, 4)]  # Two disconnected components

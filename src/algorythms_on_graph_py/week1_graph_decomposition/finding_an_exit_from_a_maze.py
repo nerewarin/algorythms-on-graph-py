@@ -43,16 +43,39 @@ What To Do
 To solve this problem, it is enough to implement carefully the corresponding algorithm covered in the lectures.
 """
 
+import collections
 import dataclasses
+from functools import cached_property
+from typing import Optional
+
+# Use int for vertex IDs - simpler and more convenient
+type Edge = tuple[int, int]
+type EdgesList = list[Edge]
+type AdjList = dict[int, list[int]]
 
 
 class Maze:
-    def __init__(self, n: int, m: int, edges: list[tuple[int, int]]) -> None:
+    def __init__(self, n: int, m: int, edges: EdgesList) -> None:
         # vertexes_amount
         self.n = n
         # edges_amount
         self.m = m
         self.edges = edges
+
+    @cached_property
+    def adjacency_list(self) -> AdjList:
+        res = collections.defaultdict(list)
+        for edge in self.edges:
+            left, right = edge
+            res[left].append(right)
+            res[right].append(left)
+        return dict(res)
+
+    def explore(self, v: int, visited: Optional[set[int]] = None) -> None:
+        if visited is None:
+            visited = set()
+
+        visited.add(v)
 
     def check_path_between(self, u: int, v: int) -> bool:
         """
@@ -73,7 +96,7 @@ class Maze:
 class Input:
     n: int
     m: int
-    edges: list[tuple[int, int]]
+    edges: EdgesList
     u: int
     v: int
 
@@ -87,6 +110,11 @@ def parse_input() -> Input:
         edges.append(edge)
     u, v = map(int, input().split())
     return Input(n, m, edges, u, v)
+
+
+def check_path_between(inp: Input) -> bool:
+    maze = Maze(inp.n, inp.m, inp.edges)
+    return maze.check_path_between(inp.u, inp.v)
 
 
 if __name__ == "__main__":
