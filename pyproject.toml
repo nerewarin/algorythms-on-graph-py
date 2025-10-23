@@ -1,0 +1,37 @@
+[project]
+name = "algorythms-on-graph-py"
+version = "0.1.0"
+description = "Algorithms on Graphs — Python solutions for Coursera course https://www.coursera.org/learn/algorithms-on-graphs/"
+readme = "README.md"
+requires-python = ">=3.13"
+authors = [{ name = "Arseniy Gorbachev" }]
+license = { text = "MIT" }
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest", "ruff", "mypy", "pre-commit"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py313"
+lint.extend-select = ["I"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[tool.mypy]
+python_version = "3.13"
+strict = true
+warn_unused_ignores = true
+warn_redundant_casts = true
+disallow_untyped_defs = true
+mypy_path = "src"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+# 👇 Tell Hatch where the packages are
+[tool.hatch.build.targets.wheel]
+packages = ["src/week1_graph_decomposition"]
