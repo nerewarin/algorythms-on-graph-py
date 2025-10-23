@@ -42,3 +42,52 @@ to implement a solution from scratch. Filename: reachability
 What To Do
 To solve this problem, it is enough to implement carefully the corresponding algorithm covered in the lectures.
 """
+
+import dataclasses
+
+
+class Maze:
+    def __init__(self, n: int, m: int, edges: list[tuple[int, int]]) -> None:
+        # vertexes_amount
+        self.n = n
+        # edges_amount
+        self.m = m
+        self.edges = edges
+
+    def check_path_between(self, u: int, v: int) -> bool:
+        """
+        Check if there is a path between 𝑢 and
+
+        Args:
+            u: start vertex
+            v: end vertex
+
+        Returns:
+            bool
+
+        """
+        raise NotImplementedError()
+
+
+@dataclasses.dataclass
+class Input:
+    n: int
+    m: int
+    edges: list[tuple[int, int]]
+    u: int
+    v: int
+
+
+def parse_input() -> Input:
+    n, m = map(int, input().split())
+    edges = []
+    for _ in range(m):
+        u_edge, v_edge = map(int, input().split())
+        edge = (u_edge, v_edge)
+        edges.append(edge)
+    u, v = map(int, input().split())
+    return Input(n, m, edges, u, v)
+
+
+if __name__ == "__main__":
+    inp: Input = parse_input()
