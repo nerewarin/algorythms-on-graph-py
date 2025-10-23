@@ -118,9 +118,9 @@ def parse_input() -> Input:
     return Input(n, m, edges, u, v)
 
 
-def check_path_between(inp: Input) -> bool:
+def check_path_between(inp: Input) -> int:
     maze = Maze(inp.n, inp.m, inp.edges)
-    return maze.check_path_between(inp.u, inp.v)
+    return int(maze.check_path_between(inp.u, inp.v))
 
 
 if __name__ == "__main__":
