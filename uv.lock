@@ -6,6 +6,9 @@ requires-python = ">=3.13"
 name = "algorythms-on-graph-py"
 version = "0.1.0"
 source = { editable = "." }
+dependencies = [
+    { name = "typing-extensions" },
+]
 
 [package.optional-dependencies]
 dev = [
@@ -21,6 +24,7 @@ requires-dist = [
     { name = "pre-commit", marker = "extra == 'dev'" },
     { name = "pytest", marker = "extra == 'dev'" },
     { name = "ruff", marker = "extra == 'dev'" },
+    { name = "typing-extensions", specifier = ">=4.15.0" },
 ]
 provides-extras = ["dev"]
 

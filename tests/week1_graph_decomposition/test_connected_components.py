@@ -4,7 +4,7 @@ Tests for connected_components module.
 
 from unittest.mock import patch
 
-from algorythms_on_graph_py.week1_graph_decomposition.connected_components import (
+from algorythms_on_graph_py.week1_graph_decomposition.for_submit.connected_components import (
     Input,
     calculate_connected_components,
     parse_input,

@@ -6,7 +6,9 @@ readme = "README.md"
 requires-python = ">=3.13"
 authors = [{ name = "Arseniy Gorbachev" }]
 license = { text = "MIT" }
-dependencies = []
+dependencies = [
+    "typing-extensions>=4.15.0",
+]
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff", "mypy", "pre-commit"]
