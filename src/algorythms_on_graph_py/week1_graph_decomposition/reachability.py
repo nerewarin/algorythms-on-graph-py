@@ -43,73 +43,9 @@ What To Do
 To solve this problem, it is enough to implement carefully the corresponding algorithm covered in the lectures.
 """
 
-import collections
 import dataclasses
-from functools import cached_property
-from typing import Optional
 
-# Use int for vertex IDs - simpler and more convenient
-type Edge = tuple[int, int]
-type EdgesList = list[Edge]
-type AdjList = dict[int, list[int]]
-
-
-class Maze:
-    def __init__(self, n: int, m: int, edges: EdgesList) -> None:
-        # vertexes_amount
-        self.n = n
-        # edges_amount
-        self.m = m
-        self.edges = edges
-
-    @cached_property
-    def adjacency_list(self) -> AdjList:
-        res = collections.defaultdict(list)
-        for edge in self.edges:
-            left, right = edge
-            res[left].append(right)
-            res[right].append(left)
-        return res
-
-    def _explore(self, v: int, visited: Optional[set[int]] = None) -> set[int]:
-        """
-        Updates visited
-
-        Args:
-            v: vertex
-            visited: set of visited vertexes
-
-        """
-        if visited is None:
-            visited = set()
-
-        visited.add(v)
-        for v in self.adjacency_list[v]:
-            if v not in visited:
-                self._explore(v, visited)
-
-        return visited
-
-    # def _dfs(self, u: int) -> set[int]:
-    #     visited = set()
-    #     for v in self.adjacency_list:
-    #         if v not in visited:
-    #             self._explore(v, visited)
-    #     return visited
-
-    def check_path_between(self, u: int, v: int) -> bool:
-        """
-        Check if there is a path between 𝑢 and
-
-        Args:
-            u: start vertex
-            v: end vertex
-
-        Returns:
-            bool
-
-        """
-        return v in self._explore(u)
+from algorythms_on_graph_py.week1_graph_decomposition.maze import EdgesList, Maze, parse_input_line
 
 
 @dataclasses.dataclass
@@ -122,13 +58,13 @@ class Input:
 
 
 def parse_input() -> Input:
-    n, m = map(int, input().split())
+    n, m = parse_input_line()
     edges = []
     for _ in range(m):
-        u_edge, v_edge = map(int, input().split())
+        u_edge, v_edge = parse_input_line()
         edge = (u_edge, v_edge)
         edges.append(edge)
-    u, v = map(int, input().split())
+    u, v = parse_input_line()
     return Input(n, m, edges, u, v)
 
 
@@ -139,3 +75,5 @@ def check_path_between(inp: Input) -> bool:
 
 if __name__ == "__main__":
     inp: Input = parse_input()
+    res = check_path_between(inp)
+    print(res)
